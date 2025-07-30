@@ -1,16 +1,16 @@
-- name: Install mangodb component
-  hosts: mangodb
-  becomee: true
+- name: Install mongodb component
+  hosts: mongodb
+  become: true
   tasks:
-  - name: copy mango repo to yum.repos.d
+  - name: copy mongo repo to yum.repos.d
   ansible.builtin.copy:
-    src: mangodb.repo
+    src: mongodb.repo
     dest: /etc/yum.repos.d/mongo.repo
-- name: Install mangodb 
+- name: Install mongodb 
     ansible.builtin.yum:
       name: mongodb-org
       state: installed
-- name: start and enable mangodb
+- name: start and enable mongodb
   ansible.builtin.service:
     name: mongodb
     state: started
@@ -20,7 +20,7 @@
     path: /etc/mongod.conf
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
-- name: restart mangodb
+- name: restart mongodb
   ansible.builtin.service:
     name: mongod
     state: restarted
